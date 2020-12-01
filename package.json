@@ -4,7 +4,9 @@
   "description": "RESTful API for FFL ",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "nodemon",
+    "web": "nodemon index.js"
+
   },
   "author": "Nikola Shivachev",
   "license": "ISC",
