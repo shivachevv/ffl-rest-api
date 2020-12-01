@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon",
-    "web": "nodemon index.js"
+    "web": "node index.js"
 
   },
   "author": "Nikola Shivachev",
