@@ -16,7 +16,9 @@ router.get('/light-upload', getPlayersMid, lightPlayersMid, uploadLightPlayersMi
 
     res
         .status(200)
-        .send("Players updated!")
+        .json({
+            result: "Players updated!"
+        })
 })
 
 module.exports = router
