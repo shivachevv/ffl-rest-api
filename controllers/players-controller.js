@@ -3,6 +3,7 @@ const { databaseUrl } = require('../config/config')
 const getAllPlayers = require('../utils/getAllPlayers')
 const getAllUsers = require('../utils/getAllUsers')
 const lightenPlayers = require('../utils/lightenPlayers')
+const uploadPlayers = require('../utils/uploadPlayers')
 const redisClient = require('../config/redis')
 
 const getPlayersMid = async (req, res, next) => {
@@ -32,7 +33,7 @@ const getPlayersMid = async (req, res, next) => {
     const players = await getAllPlayers()
 
     // REDIS
-    redisClient.set('players', 'JSON.stringify(players)')
+    // redisClient.set('players', 'JSON.stringify(players)')
 
     req.players = players
     // req.cache = false
@@ -43,26 +44,37 @@ const getPlayersMid = async (req, res, next) => {
 }
 
 const lightPlayersMid = async (req, res, next) => {
+    // const players = { req }
     const players = req.players
     req.players = ''
     const users = await getAllUsers()
 
-    console.log(3, new Date());
+    // console.log(3, new Date());
     const lightenedPlayers = lightenPlayers(players, users)
     req.players = lightenedPlayers
 
-    console.log(4, new Date());
+    // console.log(4, new Date());
 
-    redisClient.get('players', (err, data) => {
-        if (err) throw err
+    next()
+    // redisClient.get('players', (err, data) => {
+    //     if (err) throw err
 
-        req.cache = data
-        next()
-    })
+    //     req.cache = data
+    //     next()
+    // })
 
+}
+
+const uploadLightPlayersMid = async (req, res, next) => {
+    const lightPlayers = req.players
+
+    await uploadPlayers('light', lightPlayers)
+
+    next()
 }
 
 module.exports = {
     getPlayersMid,
-    lightPlayersMid
+    lightPlayersMid,
+    uploadLightPlayersMid
 }

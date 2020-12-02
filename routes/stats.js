@@ -4,16 +4,14 @@ const axios = require('axios')
 
 const router = Router()
 
-router.get('/stats', getPlayersMid, lightPlayersMid, (req, res) => {
+router.get('/', getPlayersMid, lightPlayersMid, (req, res) => {
 
-    const { players, cache } = req
-    console.log('cache', cache);
+    const { players } = req
 
     res
         .status(200)
         .json({
-            players:'players',
-            cache
+            players
         })
 })
 

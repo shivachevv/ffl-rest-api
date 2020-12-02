@@ -1,8 +1,9 @@
 const { Router } = require('express')
+const { getPlayersMid, lightPlayersMid, uploadLightPlayersMid } = require('../controllers/players-controller')
 
 const router = Router()
 
-router.get('/players', (req, res) => {
+router.get('/', (req, res) => {
     res
         .status(200)
         .json({
@@ -11,15 +12,11 @@ router.get('/players', (req, res) => {
         })
 })
 
-router.post('/players/new', (req, res) => {
-
-    const { name } = req.body
+router.get('/light-upload', getPlayersMid, lightPlayersMid, uploadLightPlayersMid, (req, res) => {
 
     res
-        .status(201)
-        .json({
-            name
-        })
+        .status(200)
+        .send("Players updated!")
 })
 
 module.exports = router
