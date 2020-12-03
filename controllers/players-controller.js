@@ -1,10 +1,11 @@
-const axios = require('axios')
-const { databaseUrl } = require('../config/config')
+// const axios = require('axios')
+// const { databaseUrl } = require('../config/config')
 const getAllPlayers = require('../utils/getAllPlayers')
 const getAllUsers = require('../utils/getAllUsers')
 const lightenPlayers = require('../utils/lightenPlayers')
 const uploadPlayers = require('../utils/uploadPlayers')
-const redisClient = require('../config/redis')
+// const redisClient = require('../config/redis')
+const deleteLightPlayers = require('../utils/deleteLightPlayers')
 
 const getPlayersMid = async (req, res, next) => {
 
@@ -67,6 +68,8 @@ const lightPlayersMid = async (req, res, next) => {
 
 const uploadLightPlayersMid = async (req, res, next) => {
     const lightPlayers = req.players
+
+    await deleteLightPlayers()
 
     await uploadPlayers('light', lightPlayers)
 
