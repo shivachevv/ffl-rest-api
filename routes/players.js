@@ -4,6 +4,7 @@ const { getPlayersMid, lightPlayersMid, uploadLightPlayersMid } = require('../co
 const router = Router()
 
 router.get('/', (req, res) => {
+    console.log(req.protocol + '://' + req.get('host') + req.originalUrl);
     res
         .status(200)
         .json({

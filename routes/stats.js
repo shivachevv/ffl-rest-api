@@ -1,17 +1,18 @@
 const { Router } = require('express')
-const { getPlayersMid, lightPlayersMid } = require('../controllers/players-controller')
-const axios = require('axios')
+const { loadResourcesMid, createPlayersStatsMid } = require('../controllers/stats-controller')
 
 const router = Router()
 
-router.get('/', getPlayersMid, lightPlayersMid, (req, res) => {
+router.get('/', loadResourcesMid, createPlayersStatsMid, (req, res) => {
 
-    const { players } = req
+    const { stats } = req
+
+    console.log(stats);
 
     res
         .status(200)
         .json({
-            players
+            stats: "stats"
         })
 })
 
