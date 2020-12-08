@@ -10,7 +10,7 @@ router.get('/', loadResourcesMid, createPlayersStatsMid, (req, res) => {
     res
         .status(200)
         .json({
-            stats: "stats"
+            stats
         })
 })
 
