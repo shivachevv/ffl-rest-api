@@ -48,13 +48,16 @@ const calcPlayersBestCaptainEfficiency = (players, users) => {
                 }, {})
 
 
-            acc[id] = {
-                uid: user.userTeam,
-                cptEfficiency: (userCptStats.cptSum / userCptStats.totalSum * 100).toFixed(0)
-            }
+            acc.push({
+                name: user.userTeam,
+                value: (userCptStats.cptSum / userCptStats.totalSum * 100).toFixed(0)
+            })
 
             return acc
-        }, {})
+        }, [])
+        .sort((a,b)=>{
+            return Number(b.value) - Number(a.value)
+        })
 
     return result
 }

@@ -7,7 +7,7 @@ const calcMostPtsInRnd = (players) => {
             })[0]
             return {
                 name: players[id].name,
-                best: best.roundPts
+                value: best.roundPts
             }
         })
         .sort((a, b) => {
@@ -15,6 +15,9 @@ const calcMostPtsInRnd = (players) => {
         })
         .filter((x, i) => {
             if (i < 20) { return x }
+        })
+        .sort((a,b)=>{
+            return Number(b.value) - Number(a.value)
         })
 
 }

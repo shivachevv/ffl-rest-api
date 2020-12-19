@@ -18,7 +18,7 @@ const calcPlayersTop10 = (players, filterProp, filterPropValue) => {
             }, 0)
             return {
                 name: players[id].name,
-                total
+                value: total
             }
         })
         .sort((a, b) => {
@@ -26,6 +26,9 @@ const calcPlayersTop10 = (players, filterProp, filterPropValue) => {
         })
         .filter((x, i) => {
             if (i < 10) { return x }
+        })
+        .sort((a,b)=>{
+            return Number(b.value) - Number(a.value)
         })
 
 }

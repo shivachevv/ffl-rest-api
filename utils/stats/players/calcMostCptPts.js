@@ -21,13 +21,16 @@ const calcMostCptPts = (players, users) => {
                 .reduce((acc, rnd) => {
                     return acc + getCptTotal(rnd[1], rnd[0])
                 }, 0)
-            acc[id] = {
-                uid: user.userTeam,
-                cptTotal
-            }
+            acc.push({
+                name: user.userTeam,
+                value: cptTotal
+            })
 
             return acc
-        }, {})
+        }, [])
+        .sort((a,b)=>{
+            return Number(b.value) - Number(a.value)
+        })
 
     // .sort((a, b) => {
     //     return b.userBest - a.userBest

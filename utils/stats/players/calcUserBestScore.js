@@ -32,13 +32,16 @@ const calcUserBestScore = (players, users) => {
                 })[0]
 
 
-            acc[id] = {
-                uid: user.userTeam,
-                userBest
-            }
+            acc.push({
+                name: user.userTeam,
+                value: userBest
+            })
 
             return acc
-        }, {})
+        }, [])
+        .sort((a,b)=>{
+            return Number(b.value) - Number(a.value)
+        })
 
         // .sort((a, b) => {
         //     return b.userBest - a.userBest

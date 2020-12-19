@@ -7,7 +7,7 @@ const calcMostTimesOver15 = (players) => {
             }, 0)
             return {
                 name: players[id].name,
-                totalOver15
+                value: totalOver15
             }
         })
         .sort((a, b) => {
@@ -15,6 +15,9 @@ const calcMostTimesOver15 = (players) => {
         })
         .filter((x, i) => {
             if (i < 20) { return x }
+        })
+        .sort((a,b)=>{
+            return Number(b.value) - Number(a.value)
         })
 
 }

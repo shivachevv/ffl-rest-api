@@ -36,7 +36,7 @@ const createPlayersStatsMid = (req, res, next) => {
 
     const playersEnglandTop10 = calcPlayersTop10(players, 'country', 'Premier League')
     const playersFranceTop10 = calcPlayersTop10(players, 'country', 'Ligue 1')
-    const playersGermanyTop10 = calcPlayersTop10(players, 'country', 'Bundesligs')
+    const playersGermanyTop10 = calcPlayersTop10(players, 'country', 'Bundesliga')
     const playersItalyTop10 = calcPlayersTop10(players, 'country', 'Serie A')
     const playersSpainTop10 = calcPlayersTop10(players, 'country', 'La Liga')
     const playersNetherlandsTop10 = calcPlayersTop10(players, 'country', 'Eredivisie')
