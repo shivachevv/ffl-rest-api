@@ -51,28 +51,30 @@ const createPlayersStatsMid = (req, res, next) => {
     req.players = ''
     req.users = ''
     req.stats = {
-        playersBestCaptainEfficiency,
-        playersTop10,
-        playersGKTop10,
-        playersDLTop10,
-        playersDCTop10,
-        playersDRTop10,
-        playersMLTop10,
-        playersMCTop10,
-        playersMRTop10,
-        playersSTTop10,
-        playersEnglandTop10,
-        playersFranceTop10,
-        playersGermanyTop10,
-        playersItalyTop10,
-        playersSpainTop10,
-        playersNetherlandsTop10,
-        playersPortugalTop10,
-        playersTurkeyTop10,
-        mostTimesOver15,
-        mostPtsInRnd,
-        userBestScore,
-        mostCptPts
+        players: {
+            playersBestCaptainEfficiency,
+            playersTop10,
+            playersGKTop10,
+            playersDLTop10,
+            playersDCTop10,
+            playersDRTop10,
+            playersMLTop10,
+            playersMCTop10,
+            playersMRTop10,
+            playersSTTop10,
+            playersEnglandTop10,
+            playersFranceTop10,
+            playersGermanyTop10,
+            playersItalyTop10,
+            playersSpainTop10,
+            playersNetherlandsTop10,
+            playersPortugalTop10,
+            playersTurkeyTop10,
+            mostTimesOver15,
+            mostPtsInRnd,
+            userBestScore,
+            mostCptPts
+        }
     }
 
     next()
