@@ -11,14 +11,12 @@ const calcMostPtsInRnd = (players) => {
             }
         })
         .sort((a, b) => {
-            return b.best - a.best
+            return b.value - a.value
         })
         .filter((x, i) => {
             if (i < 20) { return x }
         })
-        .sort((a,b)=>{
-            return Number(b.value) - Number(a.value)
-        })
+        
 
 }
 

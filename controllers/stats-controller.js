@@ -7,12 +7,12 @@ const calcMostPtsInRnd = require('../utils/stats/players/calcMostPtsInRnd')
 const calcUserBestScore = require('../utils/stats/players/calcUserBestScore')
 const calcMostCptPts = require('../utils/stats/players/calcMostCptPts')
 
-// const players = require('../tempdata/players.json')
-// const users = require('../tempdata/users.json')
+const players = require('../tempdata/players.json')
+const users = require('../tempdata/users.json')
 
 const loadResourcesMid = async (req, res, next) => {
-    const players = await getAllPlayers()
-    const users = await getAllUsers()
+    // const players = await getAllPlayers()
+    // const users = await getAllUsers()
     req.players = players
     req.users = users
     next()

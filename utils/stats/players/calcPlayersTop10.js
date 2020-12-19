@@ -22,14 +22,12 @@ const calcPlayersTop10 = (players, filterProp, filterPropValue) => {
             }
         })
         .sort((a, b) => {
-            return b.total - a.total
+            return b.value - a.value
         })
         .filter((x, i) => {
             if (i < 10) { return x }
         })
-        .sort((a,b)=>{
-            return Number(b.value) - Number(a.value)
-        })
+        
 
 }
 
