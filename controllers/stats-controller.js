@@ -6,6 +6,8 @@ const calcMostTimesOver15 = require('../utils/stats/players/calcMostTimesOver15'
 const calcMostPtsInRnd = require('../utils/stats/players/calcMostPtsInRnd')
 const calcUserBestScore = require('../utils/stats/players/calcUserBestScore')
 const calcMostCptPts = require('../utils/stats/players/calcMostCptPts')
+const deleteStats = require('../utils/stats/deleteStats')
+const uploadNewStats = require('../utils/stats/uploadNewStats')
 
 // const players = require('../tempdata/players.json')
 // const users = require('../tempdata/users.json')
@@ -80,7 +82,21 @@ const createPlayersStatsMid = (req, res, next) => {
     next()
 }
 
+const deletePreviousStatsMid = async (req, res, next) => {
+    await deleteStats()
+    next()
+}
+
+
+const uploadNewStatsMid = async (req, res, next) => {
+    const { stats } = req
+    await uploadNewStats(stats)
+    next()
+}
+
 module.exports = {
     loadResourcesMid,
-    createPlayersStatsMid
+    createPlayersStatsMid,
+    deletePreviousStatsMid,
+    uploadNewStatsMid
 }

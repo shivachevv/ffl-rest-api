@@ -1,15 +1,15 @@
 const { Router } = require('express')
-const { loadResourcesMid, createPlayersStatsMid } = require('../controllers/stats-controller')
+const { loadResourcesMid, createPlayersStatsMid, deletePreviousStatsMid, uploadNewStatsMid } = require('../controllers/stats-controller')
 
 const router = Router()
 
-router.get('/', loadResourcesMid, createPlayersStatsMid, (req, res) => {
+router.get('/', loadResourcesMid, createPlayersStatsMid, deletePreviousStatsMid, uploadNewStatsMid, (req, res) => {
 
-    const { stats } = req
+    // const { stats } = req
     res
         .status(200)
         .json({
-            stats
+            status:"updated"
         })
 })
 
