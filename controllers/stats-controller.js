@@ -9,10 +9,17 @@ const calcMostCptPts = require('../utils/stats/players/calcMostCptPts')
 const deleteStats = require('../utils/stats/deleteStats')
 const uploadNewStats = require('../utils/stats/uploadNewStats')
 
+// Comment 2 lines here when in prod mode
 // const players = require('../tempdata/players.json')
 // const users = require('../tempdata/users.json')
+const calcClubsMostPlayers = require('../utils/stats/clubsandteams/calcClubsMostPlayers')
+const calcPlayersPerLeagueActive = require('../utils/stats/clubsandteams/calcPlayersPerLeagueActive')
+const calcPlayersTop100 = require('../utils/stats/clubsandteams/calcPlayersTop100')
+const calcTeamsByLeague = require('../utils/stats/clubsandteams/calcTeamsByLeague')
 
 const loadResourcesMid = async (req, res, next) => {
+
+    // Comment 2 lines here when in dev mode
     const players = await getAllPlayers()
     const users = await getAllUsers()
     req.players = players
@@ -20,13 +27,13 @@ const loadResourcesMid = async (req, res, next) => {
     next()
 }
 
-const createPlayersStatsMid = (req, res, next) => {
+const createPlayersStatsMid = async (req, res, next) => {
     const { players } = req
     const { users } = req
 
+    // PLAYERS STATS
     const playersBestCaptainEfficiency = calcPlayersBestCaptainEfficiency(players, users)
     const playersTop10 = calcPlayersTop10(players, 'none')
-
     const playersGKTop10 = calcPlayersTop10(players, 'position', 'GK')
     const playersDLTop10 = calcPlayersTop10(players, 'position', 'DL')
     const playersDCTop10 = calcPlayersTop10(players, 'position', 'DC')
@@ -35,7 +42,6 @@ const createPlayersStatsMid = (req, res, next) => {
     const playersMCTop10 = calcPlayersTop10(players, 'position', 'MC')
     const playersMRTop10 = calcPlayersTop10(players, 'position', 'MR')
     const playersSTTop10 = calcPlayersTop10(players, 'position', 'ST')
-
     const playersEnglandTop10 = calcPlayersTop10(players, 'country', 'Premier League')
     const playersFranceTop10 = calcPlayersTop10(players, 'country', 'Ligue 1')
     const playersGermanyTop10 = calcPlayersTop10(players, 'country', 'Bundesliga')
@@ -44,11 +50,22 @@ const createPlayersStatsMid = (req, res, next) => {
     const playersNetherlandsTop10 = calcPlayersTop10(players, 'country', 'Eredivisie')
     const playersPortugalTop10 = calcPlayersTop10(players, 'country', 'Primeira Liga')
     const playersTurkeyTop10 = calcPlayersTop10(players, 'country', 'Superlig')
-
     const mostTimesOver15 = calcMostTimesOver15(players)
     const mostPtsInRnd = calcMostPtsInRnd(players)
     const userBestScore = calcUserBestScore(players, users)
     const mostCptPts = calcMostCptPts(players, users)
+
+    // CLUBS AND USER TEAMS
+
+    const clubsMostPlayers = calcClubsMostPlayers('total', players, users)
+    const clubsMostPlayersPele = calcClubsMostPlayers('pele', players, users)
+    const clubsMostPlayersMaradona = calcClubsMostPlayers('maradona', players, users)
+    const playersPerLeagueActive = await calcPlayersPerLeagueActive('total', players, users)
+    const playersPerLeagueActivePele = await calcPlayersPerLeagueActive('pele', players, users)
+    const playersPerLeagueActiveMaradona = await calcPlayersPerLeagueActive('maradona', players, users)
+    const teamsPlayersTop100 = calcPlayersTop100('teams', players)
+    const leaguesPlayersTop100 = calcPlayersTop100('leagues', players)
+    const teamsByLeague = calcTeamsByLeague(players, users)
 
     req.players = ''
     req.users = ''
@@ -76,9 +93,20 @@ const createPlayersStatsMid = (req, res, next) => {
             mostPtsInRnd,
             userBestScore,
             mostCptPts
+        },
+        clubs: {
+            clubsMostPlayers,
+            clubsMostPlayersPele,
+            clubsMostPlayersMaradona,
+            playersPerLeagueActive,
+            playersPerLeagueActivePele,
+            playersPerLeagueActiveMaradona,
+            teamsPlayersTop100,
+            leaguesPlayersTop100,
+            teamsByLeague
         }
     }
-
+    // console.log(req.stats);
     next()
 }
 
