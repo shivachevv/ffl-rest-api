@@ -16,7 +16,7 @@ const calcTeamsByLeague = (players, users) => {
             return obj
         }, {})
     
-        console.log(clubsObject);
+        // console.log(clubsObject);
     return Object.entries(clubsObject)
         .sort((x, y) => {
             return y[1].length - x[1].length

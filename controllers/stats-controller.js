@@ -9,17 +9,21 @@ const calcMostCptPts = require('../utils/stats/players/calcMostCptPts')
 const deleteStats = require('../utils/stats/deleteStats')
 const uploadNewStats = require('../utils/stats/uploadNewStats')
 
-// Comment 2 lines here when in prod mode
+// Comment 2 lines bellow when in prod mode
 // const players = require('../tempdata/players.json')
 // const users = require('../tempdata/users.json')
 const calcClubsMostPlayers = require('../utils/stats/clubsandteams/calcClubsMostPlayers')
 const calcPlayersPerLeagueActive = require('../utils/stats/clubsandteams/calcPlayersPerLeagueActive')
 const calcPlayersTop100 = require('../utils/stats/clubsandteams/calcPlayersTop100')
 const calcTeamsByLeague = require('../utils/stats/clubsandteams/calcTeamsByLeague')
+const calcDraftOriginal = require('../utils/stats/draft/calcDraftOriginal')
+const calcDraftBestPick = require('../utils/stats/draft/calcDraftBestPick')
+const calcDraftTop5 = require('../utils/stats/draft/calcDraftTop5')
+const calcDraftPlayersIn = require('../utils/stats/draft/calcDraftPlayersIn')
 
 const loadResourcesMid = async (req, res, next) => {
 
-    // Comment 2 lines here when in dev mode
+    // Comment 2 lines bellow when in dev mode
     const players = await getAllPlayers()
     const users = await getAllUsers()
     req.players = players
@@ -56,7 +60,6 @@ const createPlayersStatsMid = async (req, res, next) => {
     const mostCptPts = calcMostCptPts(players, users)
 
     // CLUBS AND USER TEAMS
-
     const clubsMostPlayers = calcClubsMostPlayers('total', players, users)
     const clubsMostPlayersPele = calcClubsMostPlayers('pele', players, users)
     const clubsMostPlayersMaradona = calcClubsMostPlayers('maradona', players, users)
@@ -66,6 +69,15 @@ const createPlayersStatsMid = async (req, res, next) => {
     const teamsPlayersTop100 = calcPlayersTop100('teams', players)
     const leaguesPlayersTop100 = calcPlayersTop100('leagues', players)
     const teamsByLeague = calcTeamsByLeague(players, users)
+
+    // DRAFT
+    const draftOriginalPele = calcDraftOriginal('pele', players, users)
+    const draftOriginalMaradona = calcDraftOriginal('maradona', players, users)
+    const draftBestPickPele = calcDraftBestPick('pele', players, users)
+    const draftBestPickMaradona = calcDraftBestPick('maradona', players, users)
+    const draftTop5Pele = calcDraftTop5('pele', players, users)
+    const draftTop5Maradona = calcDraftTop5('maradona', players, users)
+    const draftPlayersIn = calcDraftPlayersIn(users)
 
     req.players = ''
     req.users = ''
@@ -104,6 +116,15 @@ const createPlayersStatsMid = async (req, res, next) => {
             teamsPlayersTop100,
             leaguesPlayersTop100,
             teamsByLeague
+        },
+        draft: {
+            draftOriginalPele,
+            draftOriginalMaradona,
+            draftBestPickPele,
+            draftBestPickMaradona,
+            draftTop5Pele,
+            draftTop5Maradona,
+            draftPlayersIn
         }
     }
     // console.log(req.stats);
