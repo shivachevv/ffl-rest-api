@@ -1,5 +1,4 @@
 const getCurrentRound = require("../../getCurrentRound")
-const roundPointsCalculator = require("../../roundPointsCalculator")
 
 const calcDraftBestPick = async (league, players, users) => {
     const lastRound = await getCurrentRound()
@@ -9,7 +8,7 @@ const calcDraftBestPick = async (league, players, users) => {
         'maradona': '60e2f9e6-af52-4b5e-8918-94d9c79fd1c4',
     }
     const firstRound = 1
-    const firstRndTeams = Object.values(users)
+    const result = Object.values(users)
         .filter(x => x.league === leaguesMap[league])
         .map(x => {
             const team = x.rounds[`r${firstRound}`].team
@@ -20,13 +19,14 @@ const calcDraftBestPick = async (league, players, users) => {
             }
         })
         .sort((a, b) => b.value - a.value)
+
+        return result
 }
 
 module.exports = calcDraftBestPick
 
 function calcBestPick(lastRound, team, players) {
     let result = Object.entries(team).map(x => {
-        const pos = x[0]
         const id = x[1]
         let total = 0
         for (let i = 1; i <= lastRound; i++) {
