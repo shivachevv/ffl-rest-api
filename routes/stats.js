@@ -6,6 +6,7 @@ const router = Router()
 router.get('/', loadResourcesMid, createPlayersStatsMid, deletePreviousStatsMid, uploadNewStatsMid, (req, res) => {
 
     // const { stats } = req
+    // console.log(Object.keys(stats));
     res
         .status(200)
         .json({

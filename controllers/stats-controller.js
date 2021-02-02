@@ -60,9 +60,9 @@ const createPlayersStatsMid = async (req, res, next) => {
     const mostCptPts = calcMostCptPts(players, users)
 
     // CLUBS AND USER TEAMS
-    const clubsMostPlayers = calcClubsMostPlayers('total', players, users)
-    const clubsMostPlayersPele = calcClubsMostPlayers('pele', players, users)
-    const clubsMostPlayersMaradona = calcClubsMostPlayers('maradona', players, users)
+    const clubsMostPlayers = await calcClubsMostPlayers('total', players, users)
+    const clubsMostPlayersPele = await calcClubsMostPlayers('pele', players, users)
+    const clubsMostPlayersMaradona = await calcClubsMostPlayers('maradona', players, users)
     const playersPerLeagueActive = await calcPlayersPerLeagueActive('total', players, users)
     const playersPerLeagueActivePele = await calcPlayersPerLeagueActive('pele', players, users)
     const playersPerLeagueActiveMaradona = await calcPlayersPerLeagueActive('maradona', players, users)
@@ -71,13 +71,13 @@ const createPlayersStatsMid = async (req, res, next) => {
     const teamsByLeague = calcTeamsByLeague(players, users)
 
     // DRAFT
-    const draftOriginalPele = calcDraftOriginal('pele', players, users)
-    const draftOriginalMaradona = calcDraftOriginal('maradona', players, users)
-    const draftBestPickPele = calcDraftBestPick('pele', players, users)
-    const draftBestPickMaradona = calcDraftBestPick('maradona', players, users)
-    const draftTop5Pele = calcDraftTop5('pele', players, users)
-    const draftTop5Maradona = calcDraftTop5('maradona', players, users)
-    const draftPlayersIn = calcDraftPlayersIn(users)
+    const draftOriginalPele = await calcDraftOriginal('pele', players, users)
+    const draftOriginalMaradona = await calcDraftOriginal('maradona', players, users)
+    const draftBestPickPele = await calcDraftBestPick('pele', players, users)
+    const draftBestPickMaradona = await calcDraftBestPick('maradona', players, users)
+    const draftTop5Pele = await calcDraftTop5('pele', players, users)
+    const draftTop5Maradona = await calcDraftTop5('maradona', players, users)
+    const draftPlayersIn = await calcDraftPlayersIn(users)
 
     req.players = ''
     req.users = ''
