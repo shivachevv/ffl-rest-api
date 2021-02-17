@@ -20,20 +20,28 @@ const calcDraftOriginal = require('../utils/stats/draft/calcDraftOriginal')
 const calcDraftBestPick = require('../utils/stats/draft/calcDraftBestPick')
 const calcDraftTop5 = require('../utils/stats/draft/calcDraftTop5')
 const calcDraftPlayersIn = require('../utils/stats/draft/calcDraftPlayersIn')
+const calcBestNonDraft = require('../utils/stats/transfers/calcBestNonDraft')
+const getAllLeagues = require('../utils/getAllLeagues')
+const getAllTransfers = require('../utils/getAllTransfers')
+const calcTransfersPerLeague = require('../utils/stats/transfers/calcTransfersPerLeague')
+const calcTransfersPerPosition = require('../utils/stats/transfers/calcTransfersPerPosition')
 
 const loadResourcesMid = async (req, res, next) => {
 
     // Comment 2 lines bellow when in dev mode
     const players = await getAllPlayers()
     const users = await getAllUsers()
+    const transfers = await getAllTransfers()
+    const leagues = await getAllLeagues()
     req.players = players
     req.users = users
+    req.transfers = transfers
+    req.leagues = leagues
     next()
 }
 
 const createPlayersStatsMid = async (req, res, next) => {
-    const { players } = req
-    const { users } = req
+    const { players, users, leagues, transfers } = req
 
     // PLAYERS STATS
     const playersBestCaptainEfficiency = calcPlayersBestCaptainEfficiency(players, users)
@@ -79,8 +87,38 @@ const createPlayersStatsMid = async (req, res, next) => {
     const draftTop5Maradona = await calcDraftTop5('maradona', players, users)
     const draftPlayersIn = await calcDraftPlayersIn(users)
 
+    // TRANSFERS
+    const bestNonDraft = calcBestNonDraft(players, users)
+    const transfersPerLeague = calcTransfersPerLeague(transfers, leagues, users)
+    const transfersPerPosition = calcTransfersPerPosition(transfers, 'total')
+
+    const transfersPerPositionFoolosophyWanderers = calcTransfersPerPosition(transfers, 'Foolosophy Wanderers')
+    const transfersPerPositionBigBoys = calcTransfersPerPosition(transfers, 'Big Boys')
+    const transfersPerPositionRedGlory = calcTransfersPerPosition(transfers, 'Red Glory')
+    const transfersPerPositionCowpocalypse = calcTransfersPerPosition(transfers, 'Cowpocalypse')
+    const transfersPerPositionTheTardigrades = calcTransfersPerPosition(transfers, 'The Tardigrades')
+    const transfersPerPositionBohemians = calcTransfersPerPosition(transfers, 'Bohemians')
+    const transfersPerPositionTrolleyN10 = calcTransfersPerPosition(transfers, 'Trolley N10')
+    const transfersPerPositionHornets = calcTransfersPerPosition(transfers, 'Hornets')
+    const transfersPerPositionUnchosenOnes = calcTransfersPerPosition(transfers, 'Unchosen Ones')
+    const transfersPerPositionPinkyanddeBruyne = calcTransfersPerPosition(transfers, 'Pinky and de Bruyne')
+    const transfersPerPositionSSLazioChirpan = calcTransfersPerPosition(transfers, 'SS Lazio Chirpan')
+    const transfersPerPositionAtleticoPlovdiv = calcTransfersPerPosition(transfers, 'Atletico Plovdiv')
+    const transfersPerPositionKar6iakaPedestrians = calcTransfersPerPosition(transfers, 'Kar6iaka Pedestrians')
+    const transfersPerPositionArbitragers = calcTransfersPerPosition(transfers, 'Arbitragers')
+    const transfersPerPositionZlodeite = calcTransfersPerPosition(transfers, 'Zlodeite')
+    const transfersPerPositionCockyCaucasians = calcTransfersPerPosition(transfers, 'Cocky Caucasians')
+    const transfersPerPositionFCMadrid = calcTransfersPerPosition(transfers, 'FC Madrid')
+    const transfersPerPositionSmakyTeam = calcTransfersPerPosition(transfers, 'Smaky Team')
+    const transfersPerPositionCheloprachene = calcTransfersPerPosition(transfers, 'Cheloprachene')
+    const transfersPerPositionTheAsses = calcTransfersPerPosition(transfers, 'The Asses')
+    const transfersPerPositionThracianSeparatists = calcTransfersPerPosition(transfers, 'Thracian Separatists')
+    const transfersPerPositionOpalchencite = calcTransfersPerPosition(transfers, 'Opalchencite')
+
     req.players = ''
     req.users = ''
+    req.transfers = ''
+    req.leagues = ''
     req.stats = {
         players: {
             playersBestCaptainEfficiency,
@@ -125,6 +163,33 @@ const createPlayersStatsMid = async (req, res, next) => {
             draftTop5Pele,
             draftTop5Maradona,
             draftPlayersIn
+        },
+        transfers: {
+            bestNonDraft,
+            transfersPerLeague,
+            transfersPerPosition,
+            transfersPerPositionFoolosophyWanderers,
+            transfersPerPositionBigBoys,
+            transfersPerPositionRedGlory,
+            transfersPerPositionCowpocalypse,
+            transfersPerPositionTheTardigrades,
+            transfersPerPositionBohemians,
+            transfersPerPositionTrolleyN10,
+            transfersPerPositionHornets,
+            transfersPerPositionUnchosenOnes,
+            transfersPerPositionPinkyanddeBruyne,
+            transfersPerPositionSSLazioChirpan,
+            transfersPerPositionAtleticoPlovdiv,
+            transfersPerPositionKar6iakaPedestrians,
+            transfersPerPositionArbitragers,
+            transfersPerPositionZlodeite,
+            transfersPerPositionCockyCaucasians,
+            transfersPerPositionFCMadrid,
+            transfersPerPositionSmakyTeam,
+            transfersPerPositionCheloprachene,
+            transfersPerPositionTheAsses,
+            transfersPerPositionThracianSeparatists,
+            transfersPerPositionOpalchencite,
         }
     }
     // console.log(req.stats);

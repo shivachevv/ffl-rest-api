@@ -1,8 +1,8 @@
 const getCurrentRound = require("../../getCurrentRound")
 
 const calcDraftPlayersIn = async (users) => {
-    const lastRound = await getCurrentRound()
-    // const lastRound = 15
+    // const lastRound = await getCurrentRound()
+    const lastRound = 15
 
     const firstRound = 1
     const result = Object.values(users)

@@ -8,8 +8,8 @@ const calcClubsMostPlayers = async (league, players, users) => {
         'maradona': '60e2f9e6-af52-4b5e-8918-94d9c79fd1c4',
         'total': undefined
     }
-    const lastRound = await getCurrentRound()
-    // const lastRound = 15
+    // const lastRound = await getCurrentRound()
+    const lastRound = 15
 
     const lightPlayers = lightenPlayers(players, users)
     const lightArray = Object.values(lightPlayers)

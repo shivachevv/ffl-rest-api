@@ -1,8 +1,8 @@
 const getCurrentRound = require("../../getCurrentRound")
 
 const calcDraftBestPick = async (league, players, users) => {
-    const lastRound = await getCurrentRound()
-    // const lastRound = 15
+    // const lastRound = await getCurrentRound()
+    const lastRound = 15
     const leaguesMap = {
         'pele': '33c46ff1-1756-41a1-a80f-01b2f4fb4b3c',
         'maradona': '60e2f9e6-af52-4b5e-8918-94d9c79fd1c4',
