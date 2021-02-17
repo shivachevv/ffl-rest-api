@@ -38,6 +38,7 @@ function flattenTransfers(transfers) {
         .flat()
         .map(x => Object.values(x))
         .flat()
+        .filter(x => x.status === 'confirmed')
     return flat
 }
 

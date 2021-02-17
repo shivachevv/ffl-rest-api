@@ -32,7 +32,7 @@ const calcTransfersPerPosition = (transfers, user) => {
 
         return Object.values(transfersPerPos)
     }
-    
+
     const transfersPerPos = calcTransPerPos(allTransfers)
     return Object.values(transfersPerPos)
 }
@@ -46,6 +46,7 @@ function flattenTransfers(transfers) {
         .flat()
         .map(x => Object.values(x))
         .flat()
+        .filter(x => x.status === 'confirmed')
     return flat
 }
 

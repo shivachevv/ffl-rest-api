@@ -11,8 +11,11 @@ module.exports = calcTransfersPerLeague
 function flattenTransfers(transfers) {
     const transfersArr = Object.values(transfers)
     const flat = transfersArr
-        .map(x => Object.entries(x))
+        .map(x => Object.values(x))
         .flat()
+        .map(x => Object.values(x))
+        .flat()
+        .filter(x => x.status === 'confirmed')
     return flat
 }
 
@@ -26,9 +29,9 @@ function calcTransPerLeague(transfers, leagues, users) {
         return acc
     }, {})
     for (const transfer of transfers) {
-        const userLeagueId = users[transfer[0]].league
+        const userLeagueId = users[transfer.team].league
         const userLeagueName = leagues[userLeagueId].name
-        const transfersCount = Object.keys(transfer[1]).length
+        const transfersCount = 1
         result[userLeagueName].value = result[userLeagueName].value + transfersCount
     }
     return result
