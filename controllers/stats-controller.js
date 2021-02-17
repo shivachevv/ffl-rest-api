@@ -10,8 +10,8 @@ const deleteStats = require('../utils/stats/deleteStats')
 const uploadNewStats = require('../utils/stats/uploadNewStats')
 
 // Comment 2 lines bellow when in prod mode
-// const players = require('../tempdata/players.json')
-// const users = require('../tempdata/users.json')
+const players = require('../tempdata/players.json')
+const users = require('../tempdata/users.json')
 const calcClubsMostPlayers = require('../utils/stats/clubsandteams/calcClubsMostPlayers')
 const calcPlayersPerLeagueActive = require('../utils/stats/clubsandteams/calcPlayersPerLeagueActive')
 const calcPlayersTop100 = require('../utils/stats/clubsandteams/calcPlayersTop100')
@@ -25,12 +25,14 @@ const getAllLeagues = require('../utils/getAllLeagues')
 const getAllTransfers = require('../utils/getAllTransfers')
 const calcTransfersPerLeague = require('../utils/stats/transfers/calcTransfersPerLeague')
 const calcTransfersPerPosition = require('../utils/stats/transfers/calcTransfersPerPosition')
+const calcTransfersPerRound = require('../utils/stats/transfers/calcTransfersPerRound')
+const calcTransfersPerTeam = require('../utils/stats/transfers/calcTransfersPerTeam')
 
 const loadResourcesMid = async (req, res, next) => {
 
     // Comment 2 lines bellow when in dev mode
-    const players = await getAllPlayers()
-    const users = await getAllUsers()
+    // const players = await getAllPlayers()
+    // const users = await getAllUsers()
     const transfers = await getAllTransfers()
     const leagues = await getAllLeagues()
     req.players = players
@@ -115,6 +117,11 @@ const createPlayersStatsMid = async (req, res, next) => {
     const transfersPerPositionThracianSeparatists = calcTransfersPerPosition(transfers, 'Thracian Separatists')
     const transfersPerPositionOpalchencite = calcTransfersPerPosition(transfers, 'Opalchencite')
 
+    const transfersPerRound = calcTransfersPerRound(transfers, 'all', undefined)
+    const transfersPerRoundPele = calcTransfersPerRound(transfers, 'pele', leagues)
+    const transfersPerRoundMaradona = calcTransfersPerRound(transfers, 'maradona', leagues)
+    const transfersPerTeam = calcTransfersPerTeam(transfers)
+
     req.players = ''
     req.users = ''
     req.transfers = ''
@@ -190,6 +197,10 @@ const createPlayersStatsMid = async (req, res, next) => {
             transfersPerPositionTheAsses,
             transfersPerPositionThracianSeparatists,
             transfersPerPositionOpalchencite,
+            transfersPerRound,
+            transfersPerRoundPele,
+            transfersPerRoundMaradona,
+            transfersPerTeam
         }
     }
     // console.log(req.stats);
