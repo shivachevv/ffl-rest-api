@@ -29,7 +29,7 @@ const calcTransfersPerPosition = (transfers, user) => {
     if (usersMap[user]) {
         const filteredTransfers = filterTransfers(allTransfers, usersMap[user])
         const transfersPerPos = calcTransPerPos(filteredTransfers)
-        console.log(user, transfersPerPos);
+
         return Object.values(transfersPerPos)
     }
     

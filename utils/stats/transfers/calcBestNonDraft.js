@@ -5,7 +5,6 @@ const calcBestNonDraft = (players, users) => {
     const everyoneElse = calcEveryoneElse(users, draftPlayers)
 
     const top10 = calcTop10(everyoneElse, players)
-    console.log(top10);
     return top10
 }
 

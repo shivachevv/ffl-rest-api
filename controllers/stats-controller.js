@@ -10,8 +10,8 @@ const deleteStats = require('../utils/stats/deleteStats')
 const uploadNewStats = require('../utils/stats/uploadNewStats')
 
 // Comment 2 lines bellow when in prod mode
-const players = require('../tempdata/players.json')
-const users = require('../tempdata/users.json')
+// const players = require('../tempdata/players.json')
+// const users = require('../tempdata/users.json')
 const calcClubsMostPlayers = require('../utils/stats/clubsandteams/calcClubsMostPlayers')
 const calcPlayersPerLeagueActive = require('../utils/stats/clubsandteams/calcPlayersPerLeagueActive')
 const calcPlayersTop100 = require('../utils/stats/clubsandteams/calcPlayersTop100')
@@ -31,8 +31,8 @@ const calcTransfersPerTeam = require('../utils/stats/transfers/calcTransfersPerT
 const loadResourcesMid = async (req, res, next) => {
 
     // Comment 2 lines bellow when in dev mode
-    // const players = await getAllPlayers()
-    // const users = await getAllUsers()
+    const players = await getAllPlayers()
+    const users = await getAllUsers()
     const transfers = await getAllTransfers()
     const leagues = await getAllLeagues()
     req.players = players
