@@ -26,7 +26,7 @@ const calcTransfersPerTeam = (transfers) => {
     const allTransfers = flattenTransfers(transfers)
 
     const transfersPerTeam = calcTransPerTeam(allTransfers, usersMap)
-    return Object.values(transfersPerTeam)
+    return Object.values(transfersPerTeam).sort((a, b) => b.value - a.value)
 }
 
 module.exports = calcTransfersPerTeam

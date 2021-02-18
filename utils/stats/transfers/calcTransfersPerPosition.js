@@ -30,7 +30,7 @@ const calcTransfersPerPosition = (transfers, user) => {
         const filteredTransfers = filterTransfers(allTransfers, usersMap[user])
         const transfersPerPos = calcTransPerPos(filteredTransfers)
 
-        return Object.values(transfersPerPos)
+        return Object.values(transfersPerPos).sort((a, b) => b.value - a.value)
     }
 
     const transfersPerPos = calcTransPerPos(allTransfers)
