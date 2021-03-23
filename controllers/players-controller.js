@@ -32,7 +32,7 @@ const getPlayersMid = async (req, res, next) => {
     // })
 
     const players = await getAllPlayers()
-
+    console.log('players');
     // REDIS
     // redisClient.set('players', 'JSON.stringify(players)')
 
@@ -55,6 +55,7 @@ const lightPlayersMid = async (req, res, next) => {
     req.players = lightenedPlayers
 
     // console.log(4, new Date());
+    console.log('lightplayers mid');
 
     next()
     // redisClient.get('players', (err, data) => {
@@ -70,6 +71,7 @@ const uploadLightPlayersMid = async (req, res, next) => {
     const lightPlayers = req.players
 
     await deleteLightPlayers()
+    console.log('upload');
 
     await uploadPlayers('light', lightPlayers)
 

@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/light-upload', getPlayersMid, lightPlayersMid, uploadLightPlayersMid, (req, res) => {
-
+    console.log('final');
     res
         .status(200)
         .json({

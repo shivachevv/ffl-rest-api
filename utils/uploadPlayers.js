@@ -6,6 +6,8 @@ const uploadPlayers = (type, players) => {
     const options = {
         method: "PATCH",
         mode: "cors",
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity,
         headers: {
             "Content-Type": "application/json"
         }
